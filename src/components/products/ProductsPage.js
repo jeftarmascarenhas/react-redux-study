@@ -1,48 +1,30 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import * as productActions from '../../actions/productActions';
+import ProductList from './ProductList';
 
 class ProductsPage extends Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {
-      product: { title: '' }
-    };
-
-    this.onTitleChange = this.onTitleChange.bind(this);
-    this.onClickSave = this.onClickSave.bind(this);
   }
 
-  onTitleChange(event) {
-    const product = this.state.product;
-    product.title = event.target.value;
-    this.setState({product: product});
-  }
-
-  onClickSave(event) {
-    event.preventDefault();
-    this.props.dispatch(productActions.createProduct(this.state.product));
-  }
-
-  productRow(product, index) {
-    return <div key={index}>{product.title}</div>;
-  }
 
   render() {
+    const products = this.props;
     return(
       <div>
         <h1>Products</h1>
-        {this.props.products.map(this.productRow)}
-        <h2>Add Products</h2>
-        <input
-          type="text"
-          onChange={this.onTitleChange}
-          valeu={this.state.product.title} />
-        <input type="submit" value="Save" onClick={this.onClickSave}/>
+        <ProductList products={this.props.products}/>
       </div>
     );
   }
 }
+
+ProductsPage.propTypes = {
+  products: React.PropTypes.array.isRequired,
+  actions: React.PropTypes.object.isRequired
+};
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -50,9 +32,10 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-ProductsPage.propTypes = {
-  dispatch: React.PropTypes.func.isRequired,
-  products: React.PropTypes.array.isRequired
-};
+function mapDispatchToProps (dispatch) {
+  return {
+    actions: bindActionCreators(productActions, dispatch)
+  };
+}
 
-export default connect(mapStateToProps)(ProductsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsPage);
