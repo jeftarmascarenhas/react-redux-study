@@ -4,11 +4,14 @@ import App from './components/App';
 import HomePage from './components/home/HomePage';
 import AboutPage from './components/about/AboutPage';
 import ProductsPage from './components/products/ProductsPage';
+import MenageProductPage from './components/products/ManageProductPage';
 
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={HomePage} />
     <Route path="about" component={AboutPage} />
+    <Route path="product" component={MenageProductPage} />
+    <Route path="product/:id" component={MenageProductPage} />
     <Route path="products" component={ProductsPage} />
   </Route>
 );

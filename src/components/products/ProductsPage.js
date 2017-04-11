@@ -4,11 +4,15 @@ import { bindActionCreators } from 'redux';
 import * as productActions from '../../actions/productActions';
 import ProductList from './ProductList';
 
+const propTypes = {
+  products: React.PropTypes.array.isRequired,
+  actions: React.PropTypes.object.isRequired
+};
+
 class ProductsPage extends Component {
   constructor(props, context) {
     super(props, context);
   }
-
 
   render() {
     const products = this.props;
@@ -21,21 +25,18 @@ class ProductsPage extends Component {
   }
 }
 
-ProductsPage.propTypes = {
-  products: React.PropTypes.array.isRequired,
-  actions: React.PropTypes.object.isRequired
-};
+ProductsPage.propTypes = propTypes;
 
-function mapStateToProps(state, ownProps) {
+const mapStateToProps = (state, ownProps) => {
   return {
     products: state.products
   };
-}
+};
 
-function mapDispatchToProps (dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return {
     actions: bindActionCreators(productActions, dispatch)
   };
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductsPage);
