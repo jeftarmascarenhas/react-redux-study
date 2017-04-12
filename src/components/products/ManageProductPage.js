@@ -2,15 +2,20 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as productActions from '../../actions/productActions';
+import ProductForm from './ProductForm';
 
-const propTypes = {};
+const propTypes = {
+  product: React.PropTypes.object.isRequired
+};
 
-const defaultProps = {};
+
 
 class ManageProductPage extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
+      product: Object.assign({}, this.props.product),
+      errors: {}
     };
   }
 
@@ -18,6 +23,7 @@ class ManageProductPage extends Component {
     return (
       <div>
         <h1>Manage Product</h1>
+        <ProductForm product={this.state.product} errors={this.state.errors}/>
       </div>
     );
   }
@@ -25,10 +31,9 @@ class ManageProductPage extends Component {
 
 ManageProductPage.propTypes = propTypes;
 
-ManageProductPage.defaultProps = defaultProps;
-
 const mapStateToProps = (state, ownProps) => {
-  return { state };
+  let product = {id:'', watchHref:'', title:'', authorId:'', length:'', category:''};
+  return { product };
 };
 
 const mapDispatchToProps = dispatch => {
