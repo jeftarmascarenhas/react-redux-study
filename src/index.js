@@ -6,10 +6,13 @@ import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import routes from './routes';
 import { loadProducts } from './actions/productActions';
+import { loadAuthors } from './actions/authorActions';
 import './style/styles.css'; //webpack can import CSS files too
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
 const store = configureStore();
 store.dispatch(loadProducts());
+store.dispatch(loadAuthors());
 
 render(
   <Provider store={store}>

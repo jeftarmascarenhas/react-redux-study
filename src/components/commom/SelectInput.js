@@ -22,7 +22,7 @@ const SelectInput = ({name, label, value, defaultOption, options, onChange, erro
         onChange={onChange}
         className="form-control"
         >
-        <option value={defaultOption}></option>
+        <option value="">{defaultOption}</option>
         {
           options.map( (option) =>{
             return <option key={option.value} value={option.value}>{option.text}</option>;

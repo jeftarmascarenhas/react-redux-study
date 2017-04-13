@@ -64,7 +64,7 @@ class ProductApi {
     });
   }
 
-  static saveCourse(product) {
+  static saveProduct(product) {
     product = Object.assign({}, product); // to avoid manipulating object passed in.
     return new Promise((resolve, reject) => {
       setTimeout(() => {
