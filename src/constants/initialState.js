@@ -1,4 +1,5 @@
 export default {
   authors: [],
-  products:[]
+  products:[],
+  numAjaxCAllsInProgress: 0
 };
