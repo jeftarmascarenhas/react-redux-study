@@ -24,6 +24,12 @@ class ManageProductPage extends Component {
     this.saveProduct = this.saveProduct.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(this.props.product.id != nextProps.product.id){
+      this.setState({product: Object.assign({}, nextProps.product)});
+    }
+  }
+
   updateProductState(event) {
     const field = event.target.name;
     let product = this.state.product;
@@ -51,8 +57,19 @@ class ManageProductPage extends Component {
 
 ManageProductPage.propTypes = propTypes;
 
+const getProductById = (products, id) => {
+  const product = products.filter( product => product.id == id );
+  if(product) return product[0];
+  return null;
+};
+
 const mapStateToProps = (state, ownProps) => {
+  const productId = ownProps.params.id;
   let product = {id:'', watchHref:'', title:'', authorId:'', length:'', category:''};
+
+  if(productId && state.products.length > 0) {
+    product = getProductById(state.products, productId);
+  }
 
   const authorsFormatterForDropdown = state.authors.map(author =>{
     return {
