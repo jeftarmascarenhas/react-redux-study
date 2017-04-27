@@ -1,5 +1,5 @@
 import * as types from '../constants/actionTypes';
 
-export function biginAjaxCall() {
-  return {type: types.BING_AJAX_CALL};
+export function beginAjaxCall() {
+  return {type: types.BENG_AJAX_CALL};
 }

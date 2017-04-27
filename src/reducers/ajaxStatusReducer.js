@@ -5,8 +5,9 @@ function actionTypeEndsInSuccess(type) {
   return type.substring(type.length - 8) == '_SUCCESS';
 }
 
-export default function ajaxStatusReducer(state = ajaxStatusReducer.numAjaxCAllsInProgress, action) {
-  if(action.type == types.BING_AJAX_CALL) {
+export default function ajaxStatusReducer(state = initialState.ajaxCallsInProgress, action) {
+
+  if(action.type == types.BENG_AJAX_CALL) {
     return state + 1;
   } else if(actionTypeEndsInSuccess(action.type)) {
     return state - 1;

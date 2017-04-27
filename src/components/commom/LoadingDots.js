@@ -20,7 +20,7 @@ class LoadingDots extends Component {
 
   componentDidMount() {
     this.interval = setInterval(() => {
-      this.setState({ // eslint-disable-line react/no-did-mount-set-state
+      this.setState({  // eslint-disable-line react/no-did-mount-set-state
         frame: this.state.frame + 1
       });
     }, this.props.interval);
@@ -31,9 +31,9 @@ class LoadingDots extends Component {
   }
 
   render() {
-    let dots = this.state.frame % (this.props.dots + 1),
-        text = '';
-    while(dots > 0) {
+    let dots = this.state.frame % (this.props.dots + 1);
+    let text = '';
+    while (dots > 0) {
       text += '.';
       dots--;
     }
