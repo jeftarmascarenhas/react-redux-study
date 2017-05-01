@@ -7,11 +7,11 @@ const propTypes = {
   allAuthors: React.PropTypes.array,
   onSave: React.PropTypes.func.isRequired,
   onChange: React.PropTypes.func.isRequired,
-  loading: React.PropTypes.bool,
-  errors: React.PropTypes.object
+  errors: React.PropTypes.object,
+  saving: React.PropTypes.bool.isRequired
 };
 
-const ProductForm = ({ product, allAuthors, onSave, onChange, loading, errors }) => {
+const ProductForm = ({ product, allAuthors, onSave, onChange, errors, saving }) => {
   return(
     <form>
       <h1>Manage Product</h1>
@@ -50,8 +50,8 @@ const ProductForm = ({ product, allAuthors, onSave, onChange, loading, errors })
 
       <input
         type="submit"
-        disabled={loading}
-        value={loading ? 'Saving' : 'Save'}
+        disabled={saving}
+        value={saving ? 'Saving...' : 'Save'}
         className="btn btn-primary"
         onClick={onSave}
       />
@@ -61,6 +61,6 @@ const ProductForm = ({ product, allAuthors, onSave, onChange, loading, errors })
 
 };
 
-ProductForm.prototype = propTypes;
+ProductForm.propTypes = propTypes;
 
 export default ProductForm;

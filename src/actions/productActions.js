@@ -1,6 +1,6 @@
 import * as types from '../constants/actionTypes';
 import productApi from '../api/mockCourseApi';
-import {beginAjaxCall} from './ajaxStatusActons';
+import {beginAjaxCall, ajaxCallError} from './ajaxStatusActons';
 
 export function loadProductsSuccess(products) {
   return { type: types.LOAD_PRODUCTS_SUCCESS, products };
@@ -32,6 +32,7 @@ export function saveProduct(product) {
       product.id ? dispatch(updateProductSuccess(savedProduct)) :
       dispatch(createProductSuccess(savedProduct));
     }).catch(error => {
+      dispatch(ajaxCallError(error));
       throw error;
     });
   };

@@ -3,9 +3,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as productActions from '../../actions/productActions';
 import ProductForm from './ProductForm';
+import toastr from 'toastr';
 
 const propTypes = {
-  product: React.PropTypes.object.isRequired,
+  product: React.PropTypes.object,
   authors: React.PropTypes.array.isRequired,
   actions: React.PropTypes.object.isRequired
 };
@@ -17,7 +18,8 @@ class ManageProductPage extends Component {
     super(props, context);
     this.state = {
       product: Object.assign({}, props.product),
-      errors: {}
+      errors: {},
+      saving:false
     };
 
     this.updateProductState = this.updateProductState.bind(this);
@@ -39,7 +41,19 @@ class ManageProductPage extends Component {
 
   saveProduct(event) {
     event.preventDefault();
-    this.props.actions.saveProduct(this.state.product);
+    this.setState({saving:true});
+    this.props.actions.saveProduct(this.state.product)
+    .then(() => this.redirect())
+    .catch(error => {
+      toastr.error(error);
+      this.setState({saving:false});
+    });
+  }
+
+  redirect() {
+    this.setState({saving:false});
+    toastr.success('Product saved');
+    this.context.router.push('/products');
   }
 
   render() {
@@ -50,12 +64,17 @@ class ManageProductPage extends Component {
           onChange={this.updateProductState}
           onSave={this.saveProduct}
           errors={this.state.errors}
+          saving={this.state.saving}
         />
     );
   }
 }
 
 ManageProductPage.propTypes = propTypes;
+
+ManageProductPage.contextTypes = {
+  router: PropTypes.object
+};
 
 const getProductById = (products, id) => {
   const product = products.filter( product => product.id == id );
